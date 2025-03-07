@@ -3,12 +3,21 @@ import numpy as np
 from pathlib import Path
 from huggingface_hub import hf_hub_download
 from skimage import morphology
+import os
+import sys
+# Requires comfyui_controlnet_aux funcsions and classes
+custom_nodes_directory = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if custom_nodes_directory not in sys.path:
+    sys.path.append(custom_nodes_directory)
+    print("[Debug] Added to sys.path:", custom_nodes_directory)
+else:
+    print("[Debug] Path already in sys.path")
 
 # Requires comfyui_controlnet_aux funcsions and classes
-from custom_nodes.comfyui_controlnet_aux.utils import common_annotator_call
-from custom_nodes.comfyui_controlnet_aux.src.custom_controlnet_aux.teed import TEDDetector
-from custom_nodes.comfyui_controlnet_aux.src.custom_controlnet_aux.teed.ted import TED
-from custom_nodes.comfyui_controlnet_aux.src.custom_controlnet_aux.lineart_standard import LineartStandardDetector
+from comfyui_controlnet_aux.utils import common_annotator_call
+from comfyui_controlnet_aux.src.controlnet_aux.teed import TEDDetector
+from comfyui_controlnet_aux.src.controlnet_aux.teed.ted import TED
+from comfyui_controlnet_aux.src.controlnet_aux.lineart_standard import LineartStandardDetector as LineartStandardDetect
 
 class AnyLine:
     @classmethod
